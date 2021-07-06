@@ -1,3 +1,15 @@
+# Tasks
+
+---
+
+
+> Add Tailwind and ANT design (Optional) to the app.
+
+> Mock out the basic UI. Make sure it is responsive.
+ 
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
