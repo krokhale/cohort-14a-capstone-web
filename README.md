@@ -2,7 +2,17 @@
 
 ---
 
-> Write code to fetch all the questions for a particular category. HINT: Look at the comments in the code and make a fetch call to the backend. You will also need a state variable to store all the questions that come back
+> ~~Add a simple form to create a new question~~
+
+> Create a button to invoke the Ant design Modal and have the question form inside it. (Update to the point above.)
+
+> Add the functionality to show the updated questions list once the question has been created.
+
+> Add accordion to display the question list. Use the ant design accordion.
+
+> ~~Write code to fetch questions for a particualr category.~~
+
+> ~~Write code to fetch all the questions for a particular category. HINT: Look at the comments in the code and make a fetch call to the backend. You will also need a state variable to store all the questions that come back~~
 
 > ~~Add Tailwind and ANT design (Optional) to the app.~~
 

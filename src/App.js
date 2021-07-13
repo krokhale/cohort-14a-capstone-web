@@ -8,6 +8,9 @@ function App() {
 
     const [categories, setCategories] = useState();
     const [selectedCategory, setSelectedCategory] = useState();
+    const [questions, setQuestions] = useState();
+
+    const [questionTxt, setQuestionTxt] = useState('');
 
 
     const fetchCategories = async () => {
@@ -26,13 +29,32 @@ function App() {
         // console.log(category)
         // write code here to make a fetch call to get ALL the questions where cateogry id = category.id
         // once fetched, write code to display it on the UI
+        let res = await fetch(`http://localhost:3000/api/v1/categories/${category.id}/questions`)
+        let data = await res.json()
+        console.log(data)
+        setQuestions(data)
     };
 
     const switchCategory = async (category) => {
         console.log('the selcted category is', category)
         setSelectedCategory(category)
         // write code here to fetch the questions for the selected category
-        // fetchQuestions(category)
+        fetchQuestions(category)
+
+    };
+
+    const createQuestion = async () => {
+        console.log('questionTxt', questionTxt)
+        console.log('selectedCategory', selectedCategory)
+        let res = await fetch(`http://localhost:3000/api/v1/categories/${selectedCategory.id}/questions`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({questionTxt: questionTxt})
+        })
+        let data = await res.json()
+        console.log(data)
 
     };
 
@@ -63,7 +85,31 @@ function App() {
             </div>
 
             <div className={'col-span-12 border md:col-span-10 h-96 bg-gray-300'}>
+
+                {selectedCategory && <div className={'w-1/3 p-2'}>
+                    <textarea value={questionTxt}
+                              onChange={(ev) => setQuestionTxt(ev.currentTarget.value)}
+                              type="text"
+                              className={'border p-1 w-full'}
+                              placeholder={'Enter the question text...'}/>
+
+                    <button className={'px-4 py-3 bg-blue-500 text-white rounded'} onClick={createQuestion}>Create Question</button>
+                </div>}
+
+
                 <h1>Question/Answer Listing</h1>
+
+                <hr/>
+
+                <ul>
+                    {questions && questions.map((question) => {
+                        return <li key={question.id}>
+                            {question.questionTxt}
+                        </li>
+
+                    })}
+                </ul>
+
 
             </div>
 
