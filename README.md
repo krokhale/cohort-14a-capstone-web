@@ -4,11 +4,17 @@
 
 > ~~Add a simple form to create a new question~~
 
-> Create a button to invoke the Ant design Modal and have the question form inside it. (Update to the point above.)
+> ~~Create a button to invoke the Ant design Modal and have the question form inside it. (Update to the point above.)~~
 
-> Add the functionality to show the updated questions list once the question has been created.
+> ~~Add the functionality to show the updated questions list once the question has been created.~~
 
 > Add accordion to display the question list. Use the ant design accordion.
+
+> Make sure that the "QUESTIONS" text does not show up if there are no questions to show when you select a category.
+ 
+> Once you select a particular question panel. User should be able to see the answers list for that question
+
+> User should be able to click on a new answer button for each question and create a question 
 
 > ~~Write code to fetch questions for a particualr category.~~
 
