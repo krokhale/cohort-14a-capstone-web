@@ -8,13 +8,17 @@
 
 > ~~Add the functionality to show the updated questions list once the question has been created.~~
 
-> Add accordion to display the question list. Use the ant design accordion.
+> ~~Add accordion to display the question list. Use the ant design accordion.~~
 
 > Make sure that the "QUESTIONS" text does not show up if there are no questions to show when you select a category.
  
-> Once you select a particular question panel. User should be able to see the answers list for that question
+> ~~Once you select a particular question panel. User should be able to see the answers list for that question~~
 
-> User should be able to click on a new answer button for each question and create a question 
+> User should be able to click on a new answer button for each question and create a question
+
+> When a user creates an answer, you should be able to update the answer list for the question HINT: as simple as calling fetchAnswers again 
+
+> nice to have: sort the questions by createdAt 
 
 > ~~Write code to fetch questions for a particualr category.~~
 

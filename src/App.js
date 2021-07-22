@@ -15,13 +15,16 @@ function App() {
     const [selectedQuestion, setSelectedQuestion] = useState();
     const [questions, setQuestions] = useState();
 
+    // {1: [], 2: []}
+    const [answers, setAnswers] = useState({});
+
     const [showQuestionForm, setShowQuestionForm] = useState(false);
 
     const [questionTxt, setQuestionTxt] = useState('');
 
 
     const fetchCategories = async () => {
-        let res = await fetch('http://localhost:3000/api/v1/categories')
+        let res = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/categories`)
         let json = await res.json()
         console.log(json)
         setCategories(json)
@@ -36,7 +39,7 @@ function App() {
         // console.log(category)
         // write code here to make a fetch call to get ALL the questions where cateogry id = category.id
         // once fetched, write code to display it on the UI
-        let res = await fetch(`http://localhost:3000/api/v1/categories/${category.id}/questions`)
+        let res = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/categories/${category.id}/questions`)
         let data = await res.json()
         console.log(data)
         setQuestions(data)
@@ -52,7 +55,7 @@ function App() {
     const createQuestion = async () => {
         console.log('questionTxt', questionTxt)
         console.log('selectedCategory', selectedCategory)
-        let res = await fetch(`http://localhost:3000/api/v1/categories/${selectedCategory.id}/questions`, {
+        let res = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/categories/${selectedCategory.id}/questions`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -65,6 +68,18 @@ function App() {
         setShowQuestionForm(false)
     };
 
+    const fetchAnswersForQuestion = async (q) => {
+        console.log('fetch the answers for the question ', q)
+        console.log(`http://localhost:3000/api/v1/questions/${q.id}/answers`)
+        let res = await fetch(`${process.env.REACT_APP_API_URL}/api/v1/questions/${q.id}/answers`)
+        let data = await res.json()
+        console.log(data)
+
+        // Google for: update an array of objects using react hooks
+        setAnswers({...answers, [q.id]: data})
+
+    };
+
     const onPanelChange = async (questionId) => {
         console.log(questionId)
         let q
@@ -75,6 +90,7 @@ function App() {
         })
         console.log(q)
         setSelectedQuestion(q)
+        fetchAnswersForQuestion(q)
         console.log('panel was clicked')
 
     };
@@ -143,13 +159,16 @@ function App() {
                 {selectedCategory ? <h1 className={'text-center text-4xl uppercase'}>Questions</h1> : <h1 className={'text-center text-4xl mt-20 uppercase text-blue-500'}>Select a Category to continue</h1>}
 
 
-                <p>{JSON.stringify(selectedQuestion)}</p>
                 {selectedCategory && questions && questions.length>0 && <div className={'flex justify-center px-24 w-full'}>
                     <Collapse accordion className={'w-full'} onChange={onPanelChange}>
                         {questions && questions.map((question) => {
                             return <Panel header={question.questionTxt} key={question.id}>
 
-                                <p>This is where you add the answers list for this particular question</p>
+                                <ul>
+                                    {answers && answers[question.id] && answers[question.id].map((answer) => {
+                                        return <li key={answer.id}>{answer.answerTxt}</li>
+                                    })}
+                                </ul>
 
                                 <button className={'px-2 py-1 bg-blue-500 text-white rounded'}>New Answer</button>
 
@@ -181,5 +200,4 @@ function App() {
     </>
   );
 }
-
 export default App;
